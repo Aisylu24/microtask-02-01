@@ -40,9 +40,9 @@ function App() {
     });
 
 
-    function removeTask(id: string) {
-        let filteredTasks = tasks.filter(t => t.id != id);
-        setTasks(filteredTasks);
+    function removeTask(todolistID:string, taskID: string) {
+        tasks[todolistID] = tasks[todolistID].filter(t => t.id !== taskID);
+        setTasks({...tasks});
     }
 
     function addTask(title: string) {
@@ -88,6 +88,7 @@ function App() {
                 }
                 return (
                     <Todolist
+                        todolistID={el.id}
                         key={el.id}
                         title={el.title}
                         tasks={tasksForTodolist}
