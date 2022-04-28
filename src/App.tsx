@@ -13,17 +13,9 @@ type TodolistsType = {
 
 function App() {
 
-    // let [tasks, setTasks] = useState([
-    //     {id: v1(), title: "HTML&CSS", isDone: true},
-    //     {id: v1(), title: "JS", isDone: true},
-    //     {id: v1(), title: "ReactJS", isDone: false},
-    //     {id: v1(), title: "Rest API", isDone: false},
-    //     {id: v1(), title: "GraphQL", isDone: false},
-    // ]);
-    // let [filter, setFilter] = useState<FilterValuesType>("all");
 
-    let todolistID1=v1();
-    let todolistID2=v1();
+    let todolistID1 = v1();
+    let todolistID2 = v1();
 
     let [todolists, setTodolists] = useState<Array<TodolistsType>>([
         {id: todolistID1, title: 'What to learn', filter: 'all'},
@@ -31,14 +23,14 @@ function App() {
     ])
 
     let [tasks, setTasks] = useState({
-        [todolistID1]:[
+        [todolistID1]: [
             {id: v1(), title: "HTML&CSS", isDone: true},
             {id: v1(), title: "JS", isDone: true},
             {id: v1(), title: "ReactJS", isDone: false},
             {id: v1(), title: "Rest API", isDone: false},
             {id: v1(), title: "GraphQL", isDone: false},
         ],
-        [todolistID2]:[
+        [todolistID2]: [
             {id: v1(), title: "HTML&CSS2", isDone: true},
             {id: v1(), title: "JS2", isDone: true},
             {id: v1(), title: "ReactJS2", isDone: false},
@@ -46,7 +38,6 @@ function App() {
             {id: v1(), title: "GraphQL2", isDone: false},
         ]
     });
-
 
 
     function removeTask(id: string) {
@@ -86,14 +77,21 @@ function App() {
 
     return (
         <div className="App">
-            <Todolist title="What to learn"
-                      tasks={tasksForTodolist}
-                      removeTask={removeTask}
-                      changeFilter={changeFilter}
-                      addTask={addTask}
-                      changeTaskStatus={changeStatus}
-                      filter={filter}
-            />
+            {todolists.map(el => {
+                return (
+                    <Todolist
+                        key={el.id}
+                        title={el.title}
+                        tasks={tasksForTodolist}
+                        removeTask={removeTask}
+                        changeFilter={changeFilter}
+                        addTask={addTask}
+                        changeTaskStatus={changeStatus}
+                        filter={el.filter}/>
+                )
+            })}
+
+
         </div>
     );
 }
