@@ -12,7 +12,6 @@ type PropsType = {
     title: string
     tasks: Array<TaskType>
     removeTask: (todolistID:string,taskID: string) => void
-  //  changeFilter: (todolistID:string,value: FilterValuesType) => void
     addTask: (todolistID:string, title: string) => void
     changeTaskStatus: (todolistID:string,taskId: string, isDone: boolean) => void
     filter: FilterValuesType
@@ -39,7 +38,6 @@ export function Todolist(props: PropsType) {
         tasksForTodolist = props.tasks.filter(t => t.isDone === true);
     }
 
-
     const addTask = () => {
         if (title.trim() !== "") {
             props.addTask(props.todolistID, title.trim());
@@ -64,11 +62,9 @@ export function Todolist(props: PropsType) {
     const onActiveClickHandler = () => changeFilter(props.todolistID,"active");
     const onCompletedClickHandler = () => changeFilter(props.todolistID,"completed");
 
-
     const removeTodolistHandler = () => {
        props.removeTodolist(props.todolistID)
     }
-
 
     return <div>
         <h3>{props.title}

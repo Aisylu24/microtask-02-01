@@ -13,7 +13,6 @@ export type TodolistsType = {
 
 function App() {
 
-
     let todolistID1 = v1();
     let todolistID2 = v1();
 
@@ -39,7 +38,6 @@ function App() {
         ]
     });
 
-
     function removeTask(todolistID:string, taskID: string) {
         tasks[todolistID] = tasks[todolistID].filter(t => t.id !== taskID);
         setTasks({...tasks});
@@ -57,39 +55,14 @@ function App() {
         setTasks({...tasks});
     }
 
-
-    // let tasksForTodolist = tasks;
-    //
-    // if (filter === "active") {
-    //     tasksForTodolist = tasks.filter(t => t.isDone === false);
-    // }
-    // if (filter === "completed") {
-    //     tasksForTodolist = tasks.filter(t => t.isDone === true);
-    // }
-
-    // function changeFilter(todolistID:string,value: FilterValuesType) {
-    //     todolists = todolists.map(tl => tl.id === todolistID ? {...tl, filter: value} : tl)
-    //     setTodolists([...todolists])
-    // }
-
     function removeTodolist(todolistID:string) {
         todolists = todolists.filter(tl => tl.id !== todolistID)
             setTodolists([...todolists])
     }
 
-
-
     return (
         <div className="App">
             {todolists.map(el => {
-                // let tasksForTodolist = tasks[el.id];
-                //
-                // if (el.filter === "active") {
-                //     tasksForTodolist = tasks[el.id].filter(t => t.isDone === false);
-                // }
-                // if (el.filter === "completed") {
-                //     tasksForTodolist = tasks[el.id].filter(t => t.isDone === true);
-                // }
                 return (
                     <Todolist
                         todolistID={el.id}
@@ -97,7 +70,6 @@ function App() {
                         title={el.title}
                         tasks={tasks[el.id]}
                         removeTask={removeTask}
-                     //   changeFilter={changeFilter}
                         addTask={addTask}
                         changeTaskStatus={changeStatus}
                         filter={el.filter}
@@ -105,11 +77,8 @@ function App() {
                         setTodolists={setTodolists}
                         todolists={todolists}
                     />
-
                 )
             })}
-
-
         </div>
     );
 }
