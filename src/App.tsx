@@ -72,6 +72,12 @@ function App() {
         setTodolists([...todolists])
     }
 
+    function removeTodolist(todolistID:string) {
+        todolists = todolists.filter(tl => tl.id !== todolistID)
+            setTodolists([...todolists])
+    }
+
+
 
     return (
         <div className="App">
@@ -94,7 +100,10 @@ function App() {
                         changeFilter={changeFilter}
                         addTask={addTask}
                         changeTaskStatus={changeStatus}
-                        filter={el.filter}/>
+                        filter={el.filter}
+                        removeTodolist={removeTodolist}
+                    />
+
                 )
             })}
 
