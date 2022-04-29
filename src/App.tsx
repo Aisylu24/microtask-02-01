@@ -5,7 +5,7 @@ import {v1} from 'uuid';
 
 export type FilterValuesType = "all" | "active" | "completed";
 
-type TodolistsType = {
+export type TodolistsType = {
     id: string
     title: string
     filter: FilterValuesType
@@ -67,10 +67,10 @@ function App() {
     //     tasksForTodolist = tasks.filter(t => t.isDone === true);
     // }
 
-    function changeFilter(todolistID:string,value: FilterValuesType) {
-        todolists = todolists.map(tl => tl.id === todolistID ? {...tl, filter: value} : tl)
-        setTodolists([...todolists])
-    }
+    // function changeFilter(todolistID:string,value: FilterValuesType) {
+    //     todolists = todolists.map(tl => tl.id === todolistID ? {...tl, filter: value} : tl)
+    //     setTodolists([...todolists])
+    // }
 
     function removeTodolist(todolistID:string) {
         todolists = todolists.filter(tl => tl.id !== todolistID)
@@ -82,26 +82,28 @@ function App() {
     return (
         <div className="App">
             {todolists.map(el => {
-                let tasksForTodolist = tasks[el.id];
-
-                if (el.filter === "active") {
-                    tasksForTodolist = tasks[el.id].filter(t => t.isDone === false);
-                }
-                if (el.filter === "completed") {
-                    tasksForTodolist = tasks[el.id].filter(t => t.isDone === true);
-                }
+                // let tasksForTodolist = tasks[el.id];
+                //
+                // if (el.filter === "active") {
+                //     tasksForTodolist = tasks[el.id].filter(t => t.isDone === false);
+                // }
+                // if (el.filter === "completed") {
+                //     tasksForTodolist = tasks[el.id].filter(t => t.isDone === true);
+                // }
                 return (
                     <Todolist
                         todolistID={el.id}
                         key={el.id}
                         title={el.title}
-                        tasks={tasksForTodolist}
+                        tasks={tasks[el.id]}
                         removeTask={removeTask}
-                        changeFilter={changeFilter}
+                     //   changeFilter={changeFilter}
                         addTask={addTask}
                         changeTaskStatus={changeStatus}
                         filter={el.filter}
                         removeTodolist={removeTodolist}
+                        setTodolists={setTodolists}
+                        todolists={todolists}
                     />
 
                 )
