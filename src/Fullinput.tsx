@@ -1,14 +1,19 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
-import {FilterValuesType} from "./App";
 
-const Fullinput = () => {
+
+type PropsType = {
+    callBack: (newTitle:string) => void
+}
+
+const Fullinput = (props: PropsType) => {
 
     let [title, setTitle] = useState("")
     let [error, setError] = useState<string | null>(null)
 
     const addTask = () => {
-        if (title.trim() !== "") {
-            props.addTask(props.todolistID, title.trim());
+        let newTitle = title.trim()
+        if (newTitle !== "") {
+            props.callBack(newTitle);
             setTitle("");
         } else {
             setError("Title is required");

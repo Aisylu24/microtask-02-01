@@ -45,11 +45,15 @@ export function Todolist(props: PropsType) {
         props.removeTodolist(props.todolistID)
     }
 
+    const addTaskHandler = (newTitle: string) => {
+        props.addTask(props.todolistID,newTitle)
+    }
+
     return <div>
         <h3>{props.title}
             <button onClick={removeTodolistHandler}>x</button>
         </h3>
-        <Fullinput/>
+        <Fullinput callBack={addTaskHandler}/>
         <MapForTasks
             todolistID={props.todolistID}
             tasksForTodolist={tasksForTodolist}
