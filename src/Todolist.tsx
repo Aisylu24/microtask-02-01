@@ -24,9 +24,6 @@ type PropsType = {
 
 export function Todolist(props: PropsType) {
 
-    let [title, setTitle] = useState("")
-    let [error, setError] = useState<string | null>(null)
-
     function changeFilter(todolistID: string, value: FilterValuesType) {
         props.setTodolists(props.todolists.map(tl => tl.id === todolistID ? {...tl, filter: value} : tl))
     }
@@ -38,26 +35,6 @@ export function Todolist(props: PropsType) {
     }
     if (props.filter === "completed") {
         tasksForTodolist = props.tasks.filter(t => t.isDone);
-    }
-
-    const addTask = () => {
-        if (title.trim() !== "") {
-            props.addTask(props.todolistID, title.trim());
-            setTitle("");
-        } else {
-            setError("Title is required");
-        }
-    }
-
-    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setTitle(e.currentTarget.value)
-    }
-
-    const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        setError(null);
-        if (e.charCode === 13) {
-            addTask();
-        }
     }
 
     const onAllClickHandler = () => changeFilter(props.todolistID, "all");
