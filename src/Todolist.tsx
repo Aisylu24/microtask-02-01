@@ -1,6 +1,7 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import {FilterValuesType, TodolistsType} from './App';
 import MapForTasks from "./MapForTasks";
+import Fullinput from "./Fullinput";
 
 export type TaskType = {
     id: string
@@ -71,15 +72,7 @@ export function Todolist(props: PropsType) {
         <h3>{props.title}
             <button onClick={removeTodolistHandler}>x</button>
         </h3>
-        <div>
-            <input value={title}
-                   onChange={onChangeHandler}
-                   onKeyPress={onKeyPressHandler}
-                   className={error ? "error" : ""}
-            />
-            <button onClick={addTask}>+</button>
-            {error && <div className="error-message">{error}</div>}
-        </div>
+        <Fullinput/>
         <MapForTasks
             todolistID={props.todolistID}
             tasksForTodolist={tasksForTodolist}
