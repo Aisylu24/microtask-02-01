@@ -49,7 +49,7 @@ function App() {
 
     function addTask(todolistID:string, title: string) {
         let newTask = {id: v1(), title: title, isDone: false};
-        tasks[todolistID] = [newTask, ... tasks[todolistID]];
+        tasks[todolistID] = [newTask, ...tasks[todolistID]];
         setTasks({...tasks});
     }
 

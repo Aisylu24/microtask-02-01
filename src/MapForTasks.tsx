@@ -23,11 +23,13 @@ const MapForTasks = ({todolistID,tasksForTodolist, removeTask, ...props } : Prop
                     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
                         props.changeTaskStatus(todolistID,t.id, e.currentTarget.checked);
                     }
+                    const onEditHandler = (newTaskTitle:string)=> editTaskTitleHandler(t.id, newTaskTitle)
+
                     return <li key={t.id} className={t.isDone ? "is-done" : ""}>
                         <input type="checkbox"
                                onChange={onChangeHandler}
                                checked={t.isDone}/>
-                        <EditableSpan title={t.title} callback={(newTaskTitle)=>editTaskTitleHandler(t.id, newTaskTitle)}/>
+                        <EditableSpan title={t.title} callback={onEditHandler}/>
                         <button onClick={onClickHandler}>x</button>
                     </li>
                 })
