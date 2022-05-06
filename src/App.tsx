@@ -2,10 +2,11 @@ import React, {useState} from 'react';
 import './App.css';
 import {TaskType, Todolist} from './Todolist';
 import {v1} from 'uuid';
+import Fullinput from "./Fullinput";
 
 export type FilterValuesType = "all" | "active" | "completed";
 
-export type TodolistsType = {
+export type TodolistType = {
     id: string
     title: string
     filter: FilterValuesType
@@ -20,7 +21,7 @@ function App() {
     let todolistID1 = v1();
     let todolistID2 = v1();
 
-    let [todolists, setTodolists] = useState<Array<TodolistsType>>([
+    let [todolists, setTodolists] = useState<Array<TodolistType>>([
         {id: todolistID1, title: 'What to learn', filter: 'all'},
         {id: todolistID2, title: 'What to buy', filter: 'all'},
     ])
@@ -53,6 +54,14 @@ function App() {
         setTasks({...tasks});
     }
 
+    function addTDL(titleForTDL: string) {
+        const newID = v1()
+       const newTDL: TodolistType =  {id: newID, title: titleForTDL, filter: 'all'}
+        setTodolists([...todolists, newTDL]);
+        setTasks({...tasks, [newID]: []})
+    }
+
+
     function changeStatus(todolistID:string,taskID: string, isDone: boolean) {
         tasks[todolistID] = tasks[todolistID].map(t => t.id === taskID ?
             {...t, isDone} : t);
@@ -79,7 +88,9 @@ function App() {
     }
 
     return (
+
         <div className="App">
+            <Fullinput callBack={addTDL}/>
             {todolists.map(el => {
                 return (
                     <Todolist

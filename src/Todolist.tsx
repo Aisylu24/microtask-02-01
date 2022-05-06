@@ -1,5 +1,4 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
-import {FilterValuesType, TodolistsType} from './App';
+import {FilterValuesType, TodolistType} from './App';
 import MapForTasks from "./MapForTasks";
 import Fullinput from "./Fullinput";
 import EditableSpan from "./EditableSpan";
@@ -19,8 +18,8 @@ type PropsType = {
     changeTaskStatus: (todolistID: string, taskId: string, isDone: boolean) => void
     filter: FilterValuesType
     removeTodolist: (todolistID: string) => void
-    setTodolists: (todolists: Array<TodolistsType>) => void
-    todolists: Array<TodolistsType>
+    setTodolists: (todolists: Array<TodolistType>) => void
+    todolists: Array<TodolistType>
     editTaskTitle:  (todolistID: string, taskID: string, newTaskTitle: string ) => void
     editTDLTitle: (todolistID: string, newTDLTitle: string) => void
 }
