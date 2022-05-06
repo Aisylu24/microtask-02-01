@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import './App.css';
-import {Todolist} from './Todolist';
+import {TaskType, Todolist} from './Todolist';
 import {v1} from 'uuid';
 
 export type FilterValuesType = "all" | "active" | "completed";
@@ -9,6 +9,10 @@ export type TodolistsType = {
     id: string
     title: string
     filter: FilterValuesType
+}
+
+type TasksStateType = {
+    [key:string]: Array<TaskType>
 }
 
 function App() {
@@ -21,7 +25,7 @@ function App() {
         {id: todolistID2, title: 'What to buy', filter: 'all'},
     ])
 
-    let [tasks, setTasks] = useState({
+    let [tasks, setTasks] = useState<TasksStateType>({
         [todolistID1]: [
             {id: v1(), title: "HTML&CSS", isDone: true},
             {id: v1(), title: "JS", isDone: true},
@@ -60,6 +64,20 @@ function App() {
             setTodolists([...todolists])
     }
 
+    function editTaskTitle(todolistID:string, taskID:string, newTaskTitle: string) {
+        // tasks[todolistID] = tasks[todolistID].map(t => t.id === taskID ? // так не делать
+        //     {...t, title: newTaskTitle} : t);
+        // setTasks({...tasks})
+        setTasks({...tasks, [todolistID]: tasks[todolistID].map((t) => t.id === taskID ?
+                {...t, title: newTaskTitle} : t)})
+    }
+
+    function editTDLTitle(todolistID:string, newTDLTitle: string) {
+        debugger
+        setTodolists(todolists.map(tl=>
+            tl.id === todolistID? {...tl, title: newTDLTitle } : tl ))
+    }
+
     return (
         <div className="App">
             {todolists.map(el => {
@@ -76,6 +94,8 @@ function App() {
                         removeTodolist={removeTodolist}
                         setTodolists={setTodolists}
                         todolists={todolists}
+                        editTaskTitle={editTaskTitle}
+                        editTDLTitle={editTDLTitle}
                     />
                 )
             })}

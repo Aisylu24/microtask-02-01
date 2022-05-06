@@ -2,6 +2,7 @@ import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import {FilterValuesType, TodolistsType} from './App';
 import MapForTasks from "./MapForTasks";
 import Fullinput from "./Fullinput";
+import EditableSpan from "./EditableSpan";
 
 export type TaskType = {
     id: string
@@ -20,6 +21,8 @@ type PropsType = {
     removeTodolist: (todolistID: string) => void
     setTodolists: (todolists: Array<TodolistsType>) => void
     todolists: Array<TodolistsType>
+    editTaskTitle:  (todolistID: string, taskID: string, newTaskTitle: string ) => void
+    editTDLTitle: (todolistID: string, newTDLTitle: string) => void
 }
 
 export function Todolist(props: PropsType) {
@@ -49,8 +52,13 @@ export function Todolist(props: PropsType) {
         props.addTask(props.todolistID,newTitle)
     }
 
+    function editTDLTitleHandler(newTDLTitle: string) {
+        props.editTDLTitle(props.todolistID, newTDLTitle)
+    }
+
     return <div>
-        <h3>{props.title}
+        <h3>
+            <EditableSpan title={props.title} callback={editTDLTitleHandler}/>
             <button onClick={removeTodolistHandler}>x</button>
         </h3>
         <Fullinput callBack={addTaskHandler}/>
@@ -59,6 +67,7 @@ export function Todolist(props: PropsType) {
             tasksForTodolist={tasksForTodolist}
             removeTask={props.removeTask}
             changeTaskStatus={props.changeTaskStatus}
+            editTaskTitle={props.editTaskTitle}
         />
         <div>
             <button className={props.filter === 'all' ? "active-filter" : ""}
